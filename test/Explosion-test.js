@@ -1,6 +1,6 @@
 const { assert } = require('chai');
 
-const boom= new Audio('../sounds/boom.wav');
+const boom = new Audio('../sounds/boom.wav');
 
 global.Audio = class {
 	constructor() {
