@@ -1,174 +1,81 @@
-# Game Time Starter Kit (FE - Module 2)
+# Meteor Defense
 
-Basic Game Time starter kit.
+<br/>
 
-## Initial Setup
+![game](./images/markdownGifs/main-page.png)
 
-One person from your project will sets up the repository. That one person should follow these steps:
+<br>
 
-1. Clone this starter kit repository and rename the repository to `game-time` in one command
+Meteor Defense is a game which was inspired by Atari's classic Missile Command. 
 
-  ```shell
-  git clone git@github.com:turingschool-examples/game-time-starter-kit-FEm1.git game-time
-  ```
+This project exhibits object oriented programing, html canvas and unit testing. This was one of my earlier projects completed with a partner just 8 weeks into learning to program. We had fun making this project and learned a great deal.  
 
-2. Change into the `game-time` directory
+This was our first project using many separate scripts rather than one very long script, causing us to learn and think about scope and the concept of `this` in JavaScript.
 
-3. Remove the default remote (origin)
+### A live version of this project is deployed [here](http://meteor-defense.surge.sh/). Go play the game!
 
-  ```shell
-  git remote rm origin
-  ```
+<br/>
 
-4. Create a new repository on GitHub named `game-time`
+![game being played](./images/markdownGifs/long.gif)
 
-5. Add your new repository remote to the game time starter kit - **your remote URL and user name will be different in the command below**
+<br/>
 
-  ```shell
-  git remote add origin git@github.com:robbiejaeger/game-time.git
-  ```
+## Libraries Utilized
 
-6. Install the dependencies of the starter kit
+* HTML Canvas 
+* Mocha
+* Chai
 
-  ```shell
-  npm install
-  ```
+## Playing the Game
 
-7. Add, commit, and push up to your repository
+### Click the start button
 
-  ```shell
-  git add .
-  git commit -m "Initial commit using starter kit"
-  git push origin master
-  ```
+Defend your cannon and bases from incoming meteors. Once your cannon or all bases are destroyed the game is over. The number of remaining bases is displayed in the top right corner of the canvas.   
 
-8. Now add your team member(s) as collaborators to the repository. They can now clone down your `game-time` repository as normal.
+![start](./images/markdownGifs/start.gif)
 
-9. Once each partner clones down the repo, they need to run `npm install` to install the dependencies on their machine.
+<br/>
 
-## Run the Server
+### Click on the the canvas to launch missiles
 
-To see your code in action, you need to fire up a development server. Use the command:
+Use your missiles to defend your bases and stop incoming meteors. Try and create explosions ahead of the incoming missiles. You have 20 missiles to start. You will receive 5 more missiles on round 2 and 10 more missiles each round thereafter. The number of remaining missiles is displayed in the top center of the canvas.
 
-```shell
-npm start
-```
+![missiles](./images/markdownGifs/missile.gif)
 
-Once the server is running, visit in your browser:
+<br/>
 
-* `http://localhost:8080/webpack-dev-server/` to run your application.
-* `http://localhost:8080/webpack-dev-server/test.html` to run your test suite in the browser.
+### Waves
 
-To build the static files:
+There are multiple waves of increasing difficulty. A wave is completed when all of the incoming meteors are destroyed. The background will change and you will hear the next level announced. The number of incoming meteors will increase with each wave. The current wave is displayed in the top left corner of the canvas.
 
-```js
-npm run build
-```
+![levels](./images/markdownGifs/levels.gif)
 
-## Run Tests in the Terminal
+<br/>  
 
-To run all of your tests:
+### Scoring 
 
-```js
-npm test
-```
+Gain 100 points for each meteor destroyed. Your current score is displayed in the top left corner of the canvas and at the end of the game.
 
-## File Organization
+![score](./images/markdownGifs/score.gif)
 
-Webpack is a little opinionated about how files are organized. Here is a brief guide on how to organize development and test files.
+<br/>
 
-### Development Files
+## Installing Locally 
 
-Node and webpack work together to help us organize our files and keep responsibilities separated.
+#### Clone down this repository. 
 
-For example, if we have the `lib/index.js` file and a `lib/Block.js` file:
+`git clone https://github.com/PreciseSlice/meteor-defence`
 
-**lib/index.js**
+#### cd into the repository and install dependancies 
 
-```javascript
-var Block = require('./Block');
+`cd swapi-box`
 
-var canvas = document.getElementById('game');
-var context = canvas.getContext('2d');
+`npm install`
 
-var blocks = [];
+#### To start the server 
 
-blocks.push(new Block(50, 50, 10, 10, context));
-blocks.push(new Block(100, 50, 10, 10, context));
+`npm start`
 
-requestAnimationFrame(function gameLoop() {
-  context.clearRect(0, 0, canvas.width, canvas.height);
+#### To run the test suite
 
-  this.blocks.forEach(function(block){
-    block.draw()
-    block.move()
-  })
-
-  requestAnimationFrame(gameLoop);
-});
-```
-
-**lib/Block.js**
-
-```javascript
-function Block(x, y, width, height, context) {
-  this.x = x;
-  this.y = y;
-  this.width = width;
-  this.height = height;
-  this.context = context;
-}
-
-Block.prototype.draw = function () {
-  this.context.fillRect(this.x, this.y, this.width, this.height);
-};
-
-Block.prototype.move = function () {
-  this.y++;
-};
-
-module.exports = Block;
-```
-
-All of the `Block.js` code could live in the `index.js` file, but that would go against our philosophy of separating responsibility between files.
-
-There are two main things to pay attention to here:
-
-1. At the top of the `index.js` file, we require the `Block.js` file using the line of code `var Block = require('./Block');` (we leave out the `.js`). This brings in the code from the `Block.js` file so we can use that file's code in the `index.js` file.
-
-2. In the `Block.js` file, the bottom line says `module.exports = Block;` which says what we want this file to export when we say `require` in other files, like in `index.js`.
-
-So now we have two files that can share code between each other, but we have to pay attention to what we export and what we require. If we didn't do this, then when we try to make a new Block in the `index.js` file, it won't know what Block we're talking about!
-
-### Test Files
-
-Near the end of game time, you will have multiple objects for your game that are tested separately with individual test files. The `test/index.js` file serves as an "entry point" for mocha to load all of the tests you write.
-
-Test file organization is a bit different from development files. If we want to test the `Block.js` file from above, then this is how we would do it. For each object file (in this case `block.js`), we want to have a corresponding test file. So in the `test` directory, we would create a new file called `test/Block-test.js`. Here is what that file would look like:
-
-**test/Block-test.js**
-
-```javascript
-var chai = require('chai');
-var assert = chai.assert;
-
-var Block = require('../lib/Block');
-
-describe('Block', function() {
-  context('with default attributes', function() {
-    // Your tests here...  
-  });  
-});
-```
-
-**test/index.js**
-
-```javascript
-require('./Block-test')
-```
-
-Two main points to pay attention to:
-
-1. In the `Block-test.js` file, we require the `Block.js` file so that we can construct blocks in our tests.
-
-2. In the `test/index.js` file, we require the `Block-test.js` file so that we can view the test results in the browser (at `http://localhost:8080/webpack-dev-server/test.html`).
+`npm test`
