@@ -108,10 +108,10 @@
 	pew.volume = 0.2;
 
 	const nextLevel = new Audio('../sounds/next-level.wav');
-	nextLevel.volume = 0.4;
+	nextLevel.volume = 0.6;
 
 	const chime = new Audio('../sounds/chime.wav');
-	chime.volume = 0.4;
+	chime.volume = 0.6;
 
 	//images
 	const crossImage = new Image();
@@ -197,7 +197,9 @@
 	      this.cannon.populateMissiles(5);
 	      this.waveCount += 1;
 	      nextLevel.play();
-	      setTimeout(chime.play(), 4000);
+	      setTimeout(() => {
+	        chime.play();
+	      }, 800);
 	      document.querySelector('#game').style.backgroundImage = "url('../images/background-imgs/city-of-dawn-green.jpg')";
 	    } else if (this.meteorArray.length === 0 && this.baseObjArray.length > 0 && this.cannon.w > 0 && this.waveCount === 2) {
 	      this.populateMeteors(25);
@@ -205,7 +207,9 @@
 	      this.cannon.populateMissiles(10);
 	      this.waveCount += 1;
 	      nextLevel.play();
-	      setTimeout(chime.play(), 4000);
+	      setTimeout(() => {
+	        chime.play();
+	      }, 800);
 	      document.querySelector('#game').style.backgroundImage = "url('../images/background-imgs/city-of-dawn-red.jpg')";
 	    } else if (this.meteorArray.length === 0 && this.baseObjArray.length > 0 && this.cannon.w > 0 && this.waveCount === 3) {
 	      this.populateMeteors(25);
@@ -213,7 +217,9 @@
 	      this.cannon.populateMissiles(10);
 	      this.waveCount += 1;
 	      nextLevel.play();
-	      setTimeout(chime.play(), 4000);
+	      setTimeout(() => {
+	        chime.play();
+	      }, 800);
 	      document.querySelector('#game').style.backgroundImage = "url('../images/background-imgs/city-of-dawn-purple.jpg')";
 	    } else if (this.meteorArray.length === 0 && this.baseObjArray.length > 0 && this.cannon.w > 0 && this.waveCount >= 4) {
 	      console.log('next-inf');
@@ -222,7 +228,9 @@
 	      this.cannon.populateMissiles(10);
 	      this.waveCount += 1;
 	      nextLevel.play();
-	      setTimeout(chime.play(), 4000);
+	      setTimeout(() => {
+	        chime.play();
+	      }, 800);
 	      document.querySelector('#game').style.backgroundImage = "url('../images/background-imgs/city-of-dawn-orange.jpg')";
 	    }
 	  }
